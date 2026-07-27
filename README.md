@@ -60,5 +60,3 @@ cd frontend
 npm install
 npm start          # starts React on http://localhost:3000
 ```
-
-The frontend is pre-configured (via the `proxy` field in `frontend/package.json`) to forward `/api/*` calls to `http://localhost:5000`, so no extra config is needed in development.
