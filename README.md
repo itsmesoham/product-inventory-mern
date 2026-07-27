@@ -62,12 +62,3 @@ npm start          # starts React on http://localhost:3000
 ```
 
 The frontend is pre-configured (via the `proxy` field in `frontend/package.json`) to forward `/api/*` calls to `http://localhost:5000`, so no extra config is needed in development.
-
-## API Reference
-
-| Method | Endpoint                        | Description                                      |
-|--------|----------------------------------|---------------------------------------------------|
-| GET    | `/api/categories`                | List all categories                               |
-| GET    | `/api/products`                  | List products — query: `page`, `limit`, `search`, `categories` (comma-separated ids) |
-| POST   | `/api/products`                  | Create a product — body: `name`, `description`, `quantity`, `categories[]` |
-| DELETE | `/api/products/:id`              | Delete a product                                  |
