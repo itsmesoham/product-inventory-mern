@@ -2,16 +2,6 @@
 
 A full-stack Product Inventory System built with MongoDB, Express, React, and Node.js.
 
-## Features
-
-- Add products with name (unique), description, quantity, and multiple categories
-- Paginated product listing (numbered pagination) showing categories as tag/bubbles and the date added
-- Delete products with a confirm step
-- Search products by name (debounced, server-side)
-- Multi-select category filter — a product matches if it belongs to **any** selected category
-- Client-side + server-side validation, with duplicate-name protection (case-insensitive, both at the DB index level and app level)
-- Central error handling, input sanitization against NoSQL injection, indexed queries for pagination/filtering at scale
-
 ## Project structure
 
 ```
@@ -70,28 +60,3 @@ cd frontend
 npm install
 npm start          # starts React on http://localhost:3000
 ```
-
-The frontend is pre-configured (via the `proxy` field in `frontend/package.json`) to forward `/api/*` calls to `http://localhost:5000`, so no extra config is needed in development.
-
-## API Reference
-
-| Method | Endpoint                        | Description                                      |
-|--------|----------------------------------|---------------------------------------------------|
-| GET    | `/api/categories`                | List all categories                               |
-| GET    | `/api/products`                  | List products — query: `page`, `limit`, `search`, `categories` (comma-separated ids) |
-| POST   | `/api/products`                  | Create a product — body: `name`, `description`, `quantity`, `categories[]` |
-| DELETE | `/api/products/:id`              | Delete a product                                  |
-
-## Design notes
-
-- Duplicate names are rejected at three layers: client-side check on submit, a friendly 409 from the controller, and a case-insensitive unique index as the final safety net at the database level.
-- Category filtering and pagination both use indexed fields (`categories`, and Mongo's default `_id`/`createdAt` sort) so the listing query stays fast as the catalog grows — `skip/limit` combined with `countDocuments` keeps pagination numbers accurate without loading the full collection.
-- The category multi-select uses `$in`, so a product shows up if it belongs to *any* of the selected categories, per the spec.
-- Visual design (typography, spacing, the pink accent, minimal bordered cards) mirrors the reference screenshots provided.
-
-## Next steps you may want to add later
-
-- Authentication for the admin actions (add/delete)
-- Edit-product support
-- Image upload per product
-- Automated tests (Jest + Supertest for the API, React Testing Library for the UI)
